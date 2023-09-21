@@ -1,0 +1,168 @@
+---
+title: "HomeWork_1_LexBrunett_STAT408"
+author: "Lex Miguel Brunett Chavez"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r ThirdQuestion}
+
+x_bar_first <- 58.3
+n_first <- 25
+sigma_first <- 3
+confidence_first <-95
+alpha_first <- 1 - confidence_first/100
+
+z_firt <- alpha_first/2
+error_first <- z_firt*(sigma_first/sqrt(n_first))
+
+print(error_first)
+# Second confidence Interval, with n = 100 and  𝑥̅ = 58.3
+
+x_bar_second <- 58.3
+n_second <- 100
+sigma_second <- 3
+confidence_second <-95
+alpha_second <- 1 - confidence_second/100
+
+
+z_second <- alpha_first/2
+error_second <- z_second*(sigma_second/sqrt(n_second))
+
+print(error_second)
+
+# Third confidence Interval, with n = 25 and  𝑥̅ = 58.3
+
+x_bar_third <- 58.3
+n_third <- 25
+sigma_third <- 3
+confidence_third <-99
+alpha_third <- 1 - confidence_third/100
+
+z_third <- alpha_first/2
+error_third <- z_third*(sigma_third/sqrt(n_third))
+
+print(error_third)
+
+```
+
+Compute a 95% CI for 𝜇𝜇 when n = 25 and 𝑥𝑥̅= 58.3 is `r x_bar_first` +- `r error_first`.
+Compute a 95% CI for 𝜇𝜇 when n = 100 and 𝑥𝑥̅= 58.3 is `r x_bar_second` +- `r error_second`
+Compute a 99% CI for 𝜇𝜇 when n = 25 and 𝑥𝑥̅= 58.3 is `r x_bar_third` +- `r error_third`
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r FifthQuestion}
+NCbirths <- suppressWarnings(read.csv("https://raw.githubusercontent.com/LexoBrunett/STAT408_LexoBrunett/main/Datasets/births.csv"))
+
+weights <- NCbirths$weight
+
+weights_in_pounds <- weights/16
+
+
+weights_in_pounds[1:20]
+
+
+mean(weights_in_pounds)
+
+
+prop.table(table(NCbirths$Habit))*100
+
+
+
+
+``` 
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+```{r SixthQuestion}
+flint <- read.csv("https://raw.githubusercontent.com/LexoBrunett/STAT408_LexoBrunett/main/Datasets/flint.csv")
+
+
+locations = length(flint$Region)
+
+loc_PB_Great = 0
+for (x in flint$Pb) {
+  if (!is.na(x) & (x >= 15)){
+    loc_PB_Great  <- loc_PB_Great + 1
+  }
+}
+
+percentage = 100*(loc_PB_Great/locations)
+print(percentage)
+
+copper_regions <- flint[flint$Region == "North", ]
+
+mean(copper_regions$Cu)
+
+dangerous_Pb_Region <- flint[flint$Pb >= 15, ]
+
+mean(dangerous_Pb_Region$Cu)
+
+
+mean(flint$Pb)
+mean(flint$Cu)
+
+boxplot(x = flint$Pb, main="Lead Levels in Flint, Michigan", xlab="Lead Levels (PPB)") 
+boxplot(flint$Pb~flint$Region, main="Lead Levels (PPB) across Regions of Flint, Michigan")
+
+``` 
+
+
+
+
+```{r SeventhQuestion}
+hist(weights)
+
+sample_weight <- sample(weights, 10)
+
+mean(sample_weight)
+list_means <- c()
+for (x in 1:1000) {
+  sample_loop <- sample(weights, 10)
+  sample_loop <- mean(sample_loop)
+  list_means = c(list_means, sample_loop)
+}
+
+hist(list_means)
+
+
+sample_weight <- sample(weights, 30)
+
+mean(sample_weight)
+list_means <- c()
+for (x in 1:1000) {
+  sample_loop <- sample(weights, 30)
+  sample_loop <- mean(sample_loop)
+  list_means = c(list_means, sample_loop)
+}
+
+hist(list_means)
+
+
+sample_weight <- sample(weights, 100)
+
+mean(sample_weight)
+list_means <- c()
+for (x in 1:1000) {
+  sample_loop <- sample(weights, 100)
+  sample_loop <- mean(sample_loop)
+  list_means = c(list_means, sample_loop)
+}
+
+hist(list_means)
+
+```
